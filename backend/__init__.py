@@ -1,7 +1,11 @@
 from flask import Flask, request, jsonify
-from main.data import sales_per_month, sales_per_seller, best_selling_products
-from main.config import app
+from backend.data import sales_per_month, sales_per_seller, best_selling_products
+from backend.config import app
 
+
+@app.route("/")
+def home_page():
+    return "home"
 
 @app.route("/api/sales/<graphic_type>", methods=["POST"])
 def get_sales(graphic_type):
