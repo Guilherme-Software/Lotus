@@ -3,21 +3,38 @@ from main.data import sales_per_month, sales_per_seller, best_selling_products
 from main.config import app
 
 
-@app.route("/api/sales/monthly", methods=["GET", "POST"])
-def get_sales():
-    if request.method == "GET":
-        years = request.args
-    sales = sales_per_month([2024, 2025], [5, 7, 8])
-    return jsonify(sales)
+@app.route("/api/sales/<graphic_type>", methods=["POST"])
+def get_sales(graphic_type):
+    data = request.get_json()
+    if not data:
+        return(
+            jsonify({"message": "JSON inválido"}), 
+            400
+        )
+    years = data.get("years")
+    months = data.get("months")
 
-@app.route("/api/sales/seller")
-def get_sellers():
-    sellers = sales_per_seller(2025)
-    return jsonify(sellers)
+    if not years or not months:
+        return(
+            jsonify({"message": "Você deve selecionar pelo menos um mês e um ano."}), 
+            400
+        )
 
-@app.route("/api/sales/product")
-def get_products():
-    products = best_selling_products(2024, 2025)
-    return jsonify(products)
+    if graphic_type == "monthly":
+        result = sales_per_month(years, months)
+    
+    elif graphic_type == "seller":
+        result = sales_per_seller(years, months)
+
+    elif graphic_type == "product":
+        result = best_selling_products(years, months)
+
+    else:
+        return(
+            jsonify({"message": "Selecione o tipo do gráfico."}), 
+            400
+        )
+    
+    return jsonify(result), 200
 
 app
