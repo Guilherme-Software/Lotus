@@ -3,12 +3,12 @@ import axios from 'axios';
 import './App.css';
 
 function App() {
-  const [graphicType, setGraphicType] = useState("monthly");
+  const [graphType, setGraphType] = useState("monthly");
   const [selectedYears, setSelectedYears] = useState([]);
   const [selectedMonths, setSelectedMonths] = useState([]);
 
-  const handleGraphicChange = (e) => {
-    setGraphicType(e.target.value);
+  const handleGraphChange = (e) => {
+    setGraphType(e.target.value);
   };
 
   const handleYearChange = (e) => {
@@ -33,7 +33,7 @@ function App() {
 
   const handleSubmit = async () => {
     try {
-      const res = await axios.post(`http://127.0.0.1:5000/api/sales/${graphicType}`, {
+      const res = await axios.post(`http://127.0.0.1:5000/api/sales/${graphType}`, {
         years: selectedYears,
         months: selectedMonths,
       });
@@ -56,7 +56,7 @@ function App() {
       </div>
 
       <div className='center'>
-        <select name="graphic" id="graphic" onChange={handleGraphicChange}>
+        <select name="graph" id="graph" onChange={handleGraphChange}>
           <option value="monthly">vendas</option>
           <option value="seller">vendedores</option>
           <option value="product">produtos</option>

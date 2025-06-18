@@ -44,23 +44,29 @@ def sales_per_month(years=None, months=None):
     # add up how much was sold each month
     result = df.groupby("month")["Valor (R$)"].sum()
 
-    # return the result as a dict
+    # return the result as a dict for JSON.
     return result.to_dict()
 
 
+# sales by sellers by year and months.
 def sales_per_seller(years=None, months=None):
     df = preprocess_data()
     df = selected_date(df, years, months)
 
+    # add up how much the sellers was sold each month.
     result = df.groupby("Vendedor")["Valor (R$)"].sum()
 
+    # return result as a fict for JSON.
     return result.to_dict()
 
 
+# products sales by year and months.
 def best_selling_products(years=None, months=None):
     df = preprocess_data()
     df = selected_date(df, years, months)
 
+    # count how many times the product was sold.
     result = df.groupby("Produto")["Valor (R$)"].count()
 
+    # return result as a dict for JSON.
     return result.to_dict()

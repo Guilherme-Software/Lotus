@@ -2,27 +2,17 @@ from flask import Flask, request, jsonify
 from backend.data import sales_per_month, sales_per_seller, best_selling_products
 from backend.config import app, cors
 
-
+# Apagar home page
 @app.route("/", methods=["GET", "POST"])
 def home_page():
-    if request.method == "POST":
-        graphic = request.files.get("graphic")
-        if not graphic:
-            return(
-                jsonify({"message": "Arquivo inválido."}), 400
-            )
-        else:
-            return(
-                jsonify({"message": "Arquivo recebido!"}), 200
-            )
-        
     return jsonify({"message": "API funcionando"}), 200
 
+# show the graphs selected by the user.
+@app.route("/api/sales/<graph_type>", methods=["POST"])
+def get_sales(graph_type):
 
-@app.route("/api/sales/<graphic_type>", methods=["POST"])
-def get_sales(graphic_type):
+    # receive what the user selected.
     data = request.get_json()
-    print("JSON recebido:", data)
     if not data:
         return(
             jsonify({"message": "JSON inválido"}), 400
@@ -30,23 +20,27 @@ def get_sales(graphic_type):
     years = data.get("years")
     months = data.get("months")
 
+    # error message if user does not select any month or year.
     if not years or not months:
         return(
             jsonify({"message": "Você deve selecionar pelo menos um mês e um ano."}), 400
         )
 
-    if graphic_type == "monthly":
+    # take the processed data and send it using JSON
+    if graph_type == "monthly":
         result = sales_per_month(years, months)
     
-    elif graphic_type == "seller":
+    elif graph_type == "seller":
         result = sales_per_seller(years, months)
 
-    elif graphic_type == "product":
+    elif graph_type == "product":
         result = best_selling_products(years, months)
 
+    # error message if the user does not select any chart.
     else:
         return(
             jsonify({"message": "Selecione o tipo do gráfico."}), 400
         )
     
+    # show the selected graphics by the user.
     return jsonify(result), 200
