@@ -1,27 +1,37 @@
 from flask import Flask, request, jsonify
 from backend.data import sales_per_month, sales_per_seller, best_selling_products
-from backend.config import app
+from backend.config import app, cors
 
 
-@app.route("/")
+@app.route("/", methods=["GET", "POST"])
 def home_page():
-    return "home"
+    if request.method == "POST":
+        file = request.files.get("file")
+        if not file:
+            return(
+                jsonify({"message": "Arquivo inválido."}), 400
+            )
+        else:
+            return(
+                jsonify({"message": "Arquivo recebido!"}), 200
+            )
+        
+    return jsonify({"message": "API funcionando"}), 200
+
 
 @app.route("/api/sales/<graphic_type>", methods=["POST"])
 def get_sales(graphic_type):
     data = request.get_json()
     if not data:
         return(
-            jsonify({"message": "JSON inválido"}), 
-            400
+            jsonify({"message": "JSON inválido"}), 400
         )
     years = data.get("years")
     months = data.get("months")
 
     if not years or not months:
         return(
-            jsonify({"message": "Você deve selecionar pelo menos um mês e um ano."}), 
-            400
+            jsonify({"message": "Você deve selecionar pelo menos um mês e um ano."}), 400
         )
 
     if graphic_type == "monthly":
@@ -35,10 +45,7 @@ def get_sales(graphic_type):
 
     else:
         return(
-            jsonify({"message": "Selecione o tipo do gráfico."}), 
-            400
+            jsonify({"message": "Selecione o tipo do gráfico."}), 400
         )
     
     return jsonify(result), 200
-
-app
