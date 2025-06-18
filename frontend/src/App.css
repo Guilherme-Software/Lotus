@@ -1,0 +1,34 @@
+.lotus{
+  background-color: rgb(59, 59, 59);
+  color: white;
+  width: auto;
+  height: 4vw;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+.sub{
+    padding: 10px;
+}
+
+.center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.flex{
+  display: flex;
+}
+
+.footer{
+    align-items: center;
+    width: 100%;
+    height: 200px;
+    margin-top: 45%;
+    background-color: black;
+    color: white;
+    font-size: x-large;
+    text-align: center;
+}

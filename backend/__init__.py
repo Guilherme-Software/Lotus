@@ -6,8 +6,8 @@ from backend.config import app, cors
 @app.route("/", methods=["GET", "POST"])
 def home_page():
     if request.method == "POST":
-        file = request.files.get("file")
-        if not file:
+        graphic = request.files.get("graphic")
+        if not graphic:
             return(
                 jsonify({"message": "Arquivo inválido."}), 400
             )
@@ -22,6 +22,7 @@ def home_page():
 @app.route("/api/sales/<graphic_type>", methods=["POST"])
 def get_sales(graphic_type):
     data = request.get_json()
+    print("JSON recebido:", data)
     if not data:
         return(
             jsonify({"message": "JSON inválido"}), 400

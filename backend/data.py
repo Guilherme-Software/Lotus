@@ -21,6 +21,9 @@ def selected_date(df, years=None, months=None):
 
     if months is not None and not isinstance(months, list):
         months = [months]
+    
+    if months and 13 in months:
+        months = list(range(1, 13))
 
 
     # makes pandas read all selected years and months.

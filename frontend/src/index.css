@@ -2,35 +2,5 @@ html, body {
   margin: 0;
   padding: 0;
   height: 100%;
+  font-family: 'Times New Roman', serif;
 } 
-
-
-.lotus{
-  background-color: rgb(59, 59, 59);
-  color: white;
-  width: auto;
-  height: 4vw;
-  margin: 0;
-  padding: 0;
-  display: flex;
-}
-
-.mid{
-
-}
-
-.flex{
-  display: flex;
-}
-
-.footer{
-    align-items: center;
-    width: 100%;
-    height: 200px;
-    margin-top: 45%;
-    background-color: black;
-    color: white;
-    font-size: x-large;
-    text-align: center;
-}
-
