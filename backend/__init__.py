@@ -32,6 +32,7 @@ def get_sales(graph_type):
     
     elif graph_type == "seller":
         result = sales_per_seller(years, months)
+        print(result)
 
     elif graph_type == "product":
         result = best_selling_products(years, months)

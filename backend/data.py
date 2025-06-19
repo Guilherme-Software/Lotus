@@ -11,6 +11,11 @@ def preprocess_data():
 
     return df
 
+month_names = [
+    "Jan", "Fev", "Mar", "Abr", "Mai", "Jun",
+    "Jul", "Ago", "Set", "Out", "Nov", "Dez"
+]
+
 # the date the user was selected
 def selected_date(df, years=None, months=None):
 
@@ -45,7 +50,11 @@ def sales_per_month(years=None, months=None):
     result = df.groupby("month")["Valor (R$)"].sum()
 
     # return the result as a dict for JSON.
-    return result.to_dict()
+    formatted_result = [
+        {"name": month_names[month - 1], "vendas": total}
+        for month, total in result.items()
+    ]
+    return formatted_result
 
 
 # sales by sellers by year and months.
@@ -57,7 +66,11 @@ def sales_per_seller(years=None, months=None):
     result = df.groupby("Vendedor")["Valor (R$)"].sum()
 
     # return result as a fict for JSON.
-    return result.to_dict()
+    formatted_result = [
+        {"name": seller, "vendedor": total}
+        for seller, total in result.items()
+    ]
+    return formatted_result
 
 
 # products sales by year and months.

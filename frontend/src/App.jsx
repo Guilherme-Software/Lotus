@@ -1,8 +1,11 @@
 import { useState } from 'react';
 import axios, { formToJSON } from 'axios';
 import './App.css';
+import { BarChart, Bar, PieChart, Pie, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts';
+
 
 function App() {
+  const[graphData, setGraphData] = useState([])
   const [graphType, setGraphType] = useState("monthly");
   const [selectedYears, setSelectedYears] = useState([]);
   const [selectedMonths, setSelectedMonths] = useState([]);
@@ -44,10 +47,39 @@ function App() {
       });
 
       console.log(res.data);
+      setGraphData(res.data);
     } catch (error) {
       console.error("Erro:", error);
     }
   };
+
+  const renderChart = () => {
+    if (graphData.length == 0) {
+      return <p>Nenhum dado encontrado.</p>;
+    }
+
+    
+    if ("vendas" in graphData[0]) {
+      return(
+          <BarChart width={1000}height={500}data={graphData}>
+            <CartesianGrid stroke='#ccc' /> 
+            <XAxis dataKey={'name'} />
+            <YAxis />
+            <Tooltip />
+            <Bar dataKey={'vendas'} />
+          </BarChart>
+        ); 
+
+    } else if ("vendedor" in graphData[0]) {
+        return(
+            <PieChart width={1000}height={500}data={graphData}>
+              <Tooltip />
+              <Pie dataKey={"vendedor"} />
+            </PieChart>
+        )
+      }
+
+  }
 
   return (
     <>
@@ -99,6 +131,10 @@ function App() {
       <br />
       <div className='center'>
         <button type="button" className='button-4' onClick={handleSubmit}>Enviar</button>
+      </div>
+
+      <div className='center'>
+      {renderChart()}
       </div>
 
       
