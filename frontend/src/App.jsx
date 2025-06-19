@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import axios from 'axios';
+import axios, { formToJSON } from 'axios';
 import './App.css';
 
 function App() {
@@ -8,9 +8,14 @@ function App() {
   const [selectedMonths, setSelectedMonths] = useState([]);
 
   const handleGraphChange = (e) => {
-    setGraphType(e.target.value);
-  };
+    const value = e.target?.value;
+    if (!value) {
+      console.log("Nenhum gráfico selecionado.");
+      return;
+    }
 
+    setGraphType(value);
+  }
   const handleYearChange = (e) => {
     const year = parseInt(e.target.value);
     if (e.target.checked) {
@@ -47,7 +52,7 @@ function App() {
   return (
     <>
       <div className="lotus">
-          <h1>LOTUS ICT</h1>
+          <img src="/Logo-Horizontal-Lotus-ICT_Prancheta-1-copia-6.png" alt="Lotus" className='lotus-icon'/>
         </div>
 
       <div className='center'>
@@ -56,24 +61,14 @@ function App() {
       </div>
 
       <div className='center'>
-        <select name="graph" id="graph" onChange={handleGraphChange}>
+        <select name="graph" id="graph" className='select-1' onChange={handleGraphChange}>
           <option value="monthly">vendas</option>
           <option value="seller">vendedores</option>
           <option value="product">produtos</option>
         </select>
-        
 
-        <div>
-          <input type="checkbox" value="2024" onChange={handleYearChange} />
-          <label htmlFor="2024">2024</label>
-
-          <input type="checkbox" value="2025" onChange={handleYearChange} />
-          <label htmlFor="2025">2025</label>
-        </div>
-      </div>
-
-      <div className='center'>
-        <select name="months" id="months" multiple onChange={handleMonthChange}>
+        <div className='center'>
+        <select name="months" id="months" className='select-2' multiple onChange={handleMonthChange}>
           <option value="13">Todos</option>
           <option value="1">janeiro</option>
           <option value="2">fevereiro</option>
@@ -89,9 +84,21 @@ function App() {
           <option value="12">dezembro</option>
         </select>
       </div>
-      
+        
+
+        <div>
+          <input type="checkbox" value="2024" className='check-1' onChange={handleYearChange} />
+          <label htmlFor="2024">2024</label>
+          <br />
+          <input type="checkbox" value="2025" className='check-1' onChange={handleYearChange} />
+          <label htmlFor="2025">2025</label>
+        </div>
+      </div>
+
+
+      <br />
       <div className='center'>
-        <button type="button" onClick={handleSubmit}>Enviar</button>
+        <button type="button" className='button-4' onClick={handleSubmit}>Enviar</button>
       </div>
 
       
@@ -99,10 +106,14 @@ function App() {
         <div className="flex">
           <div className="footer">
             <span style={{ fontSize: "15px" }}>
-              &copy; 2025 Designed by Guilherme dos Santos Lima.
+              <a href="https://github.com/Guilherme-Software"><img src="/github_logo_icon_229278.webp" alt="Github" className='icon'/></a>
+              <a href="https://www.linkedin.com/in/guilherme-software/"><img src="/3228550_app_b_w_linkedin_logo_media_icon (1).svg" alt="Linkedln" className="icon"/></a>
+              <br />
+              &copy; 2025 Guilherme dos Santos Lima.
             </span>
           </div>
         </div>
+
       </footer>
     </>
   );
