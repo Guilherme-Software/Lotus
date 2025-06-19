@@ -30,6 +30,7 @@
 }
 
 .select-2 {
+  width: 100px;
   margin: 10px;
   border: none;
   border: 2px;
@@ -54,7 +55,7 @@
   padding: 6px 16px;
 }
 .button-4:hover {
-  background-color: #d30d17;
+  background-color: #f82e38;
   transition-duration: 0.5s;
 }
 

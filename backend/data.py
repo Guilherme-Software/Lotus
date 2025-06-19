@@ -82,4 +82,8 @@ def best_selling_products(years=None, months=None):
     result = df.groupby("Produto")["Valor (R$)"].count()
 
     # return result as a dict for JSON.
-    return result.to_dict()
+    formatted_result = [
+        {"name": product, "produto": total}
+        for product, total in result.items()
+    ]
+    return formatted_result

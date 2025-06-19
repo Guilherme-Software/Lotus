@@ -5,7 +5,7 @@ import { BarChart, Bar, PieChart, Pie, XAxis, YAxis, CartesianGrid, Tooltip } fr
 
 
 function App() {
-  const[graphData, setGraphData] = useState([])
+  const [graphData, setGraphData] = useState([])
   const [graphType, setGraphType] = useState("monthly");
   const [selectedYears, setSelectedYears] = useState([]);
   const [selectedMonths, setSelectedMonths] = useState([]);
@@ -58,7 +58,6 @@ function App() {
       return <p>Nenhum dado encontrado.</p>;
     }
 
-    
     if ("vendas" in graphData[0]) {
       return(
           <BarChart width={1000}height={500}data={graphData}>
@@ -66,18 +65,37 @@ function App() {
             <XAxis dataKey={'name'} />
             <YAxis />
             <Tooltip />
-            <Bar dataKey={'vendas'} />
+            <Bar dataKey={'vendas'} fill='#eb3434'/>
           </BarChart>
         ); 
 
     } else if ("vendedor" in graphData[0]) {
         return(
-            <PieChart width={1000}height={500}data={graphData}>
+            <PieChart width={1000}height={500}>
               <Tooltip />
-              <Pie dataKey={"vendedor"} />
+              <Pie 
+              data={graphData} 
+              dataKey={"vendedor"} 
+              cx='50%' cy='50%' 
+              outerRadius={200} 
+              label
+              fill='#cf2537'
+              />
             </PieChart>
-        )
-      }
+        );
+
+
+      } else if("produto" in graphData[0]) {
+          return(
+              <BarChart width={1000}height={500}data={graphData}>
+              <CartesianGrid stroke='#ccc' /> 
+              <XAxis dataKey={'name'} />
+              <YAxis />
+              <Tooltip />
+              <Bar dataKey={'produto'} fill='#ff0303' />
+            </BarChart>
+          )
+        }
 
   }
 
@@ -89,7 +107,7 @@ function App() {
 
       <div className='center'>
         
-          <h2>Escolha qual gráfico você deseja visualizar</h2><br />
+          <h2>Escolha qual gráfico você deseja visualizar:</h2><br />
       </div>
 
       <div className='center'>
