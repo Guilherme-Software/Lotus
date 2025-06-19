@@ -37,11 +37,5 @@ def get_sales(graph_type):
     elif graph_type == "product":
         result = best_selling_products(years, months)
 
-    # error message if the user does not select any chart.
-    else:
-        return(
-            jsonify({"message": "Selecione o tipo do gráfico."}), 400
-        )
-    
     # show the selected graphics by the user.
     return jsonify(result), 200

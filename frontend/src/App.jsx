@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { use, useState } from 'react';
 import axios, { formToJSON } from 'axios';
 import './App.css';
 import { BarChart, Bar, PieChart, Pie, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts';
@@ -9,6 +9,7 @@ function App() {
   const [graphType, setGraphType] = useState("monthly");
   const [selectedYears, setSelectedYears] = useState([]);
   const [selectedMonths, setSelectedMonths] = useState([]);
+  const [msgError, setMsgError] = useState([null]);
 
   const handleGraphChange = (e) => {
     const value = e.target?.value;
@@ -48,8 +49,13 @@ function App() {
 
       console.log(res.data);
       setGraphData(res.data);
+      setMsgError(null)
     } catch (error) {
       console.error("Erro:", error);
+
+      const message = error.response?.data?.message;
+
+      setMsgError(message);
     }
   };
 
@@ -152,7 +158,11 @@ function App() {
       </div>
 
       <div className='center'>
-      {renderChart()}
+        {msgError && <p style={{ color: 'red' }}>{msgError}</p>}
+      </div>
+      
+      <div className='center'>
+        {renderChart()}
       </div>
 
       
