@@ -170,10 +170,9 @@ function App() {
         <div className="flex">
           <div className="footer">
             <span style={{ fontSize: "15px" }}>
-              <a href="https://github.com/Guilherme-Software"><img src="/github_logo_icon_229278.webp" alt="Github" className='icon'/></a>
-              <a href="https://www.linkedin.com/in/guilherme-software/"><img src="/3228550_app_b_w_linkedin_logo_media_icon (1).svg" alt="Linkedln" className="icon"/></a>
-              <br />
-              &copy; 2025 Guilherme dos Santos Lima.
+              <img src="/Logo-Horizontal-Lotus-ICT_Prancheta-1-copia-6.png" alt="Lotus" className='lotus-icon'/>
+              <br /><br />
+              Copyright &copy; 2025 - Lotus ICT Empreendimentos S.A
             </span>
           </div>
         </div>
